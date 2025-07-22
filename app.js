@@ -7,10 +7,10 @@ const app = express();
 const rootDir = require('./util/path')
 const {engine} = require('express-handlebars')
 
-app.engine('hbs', engine({
-  extname: '.hbs',
-  defaultLayout: false      // disables layouts by default
-}));
+app.engine(
+  "hbs",
+  engine({ layoutsDir: "views/layouts", defaultLayout: "layout.hbs" })
+);
 app.set('view engine','hbs')
 app.set('views','views')
 app.use(bodyParser.urlencoded({extended:false}));
