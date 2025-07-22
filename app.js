@@ -5,13 +5,13 @@ const shopRoutes = require('./routes/shop')
 const path = require('path')
 const app = express();
 const rootDir = require('./util/path')
-const {engine} = require('express-handlebars')
+// const {engine} = require('express-handlebars')
 
-app.engine(
-  "hbs",
-  engine({ layoutsDir: "views/layouts", defaultLayout: "layout.hbs" })
-);
-app.set('view engine','hbs')
+// app.engine(
+//   "hbs",
+//   engine({ layoutsDir: "views/layouts", defaultLayout: "layout.hbs" })
+// );
+app.set('view engine','ejs')
 app.set('views','views')
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(express.static(path.join(__dirname, 'public')));
