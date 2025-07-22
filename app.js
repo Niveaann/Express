@@ -7,7 +7,7 @@ const app = express();
 const rootDir = require('./util/path')
 
 app.set('view engine','pug')
-app.set('view','views')
+app.set('views','views')
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/favicon.ico', (req, res) => res.status(204).end()); 
