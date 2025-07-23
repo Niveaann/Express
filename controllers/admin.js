@@ -11,7 +11,6 @@ exports.getAdminProducts = (req, res, next) => {
 };
 exports.postAddProduct = (req, res, next) => {
   res.redirect("/");
-  console.log(req.body);
   const product = new Product(req.body.title,req.body.imageURL,req.body.price,req.body.description);
   product.save();
 };

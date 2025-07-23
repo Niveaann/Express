@@ -3,7 +3,6 @@ const Product = require("../models/produc");
 exports.getIndex = (req, res, next) => {
   //    res.sendFile(path.join(rootDir,'views','shop.html'))
   Product.fetchAll((products) => {
-    console.log(products)
     res.render("shop/index", {
       docTitile: "My Shop",
       products: products,
@@ -57,5 +56,14 @@ exports.getOrders = (req, res, next) => {
     docTitile: "Orders",
     path: "/orders",
   });
+};
+
+exports.postCart = (req, res, next) => {
+  res.redirect("/cart")
+  console.log(req.body);
+  const product = Product.fetchByID(req.body.productId,(product)=>{
+    console.log(product)
+  })
+  
 };
 // exports.products = products;
