@@ -1,6 +1,7 @@
 const path = require("path");
 const rootDir = require("../util/path");
-const products = [];
+let products = [];
+const Product = require('../models/produc');
 exports.getAddProduct = (req, res, next) => {
   res.sendFile(path.join(rootDir, "views", "add-product.html"));
   // res.send('<form action="/admin/product" method="POST"><input type="text" name="productName"/><button type="submit">Submit</button></form>')
@@ -15,11 +16,13 @@ exports.getAddProduct = (req, res, next) => {
 exports.postAddProduct = (req, res, next) => {
   res.redirect("/");
   console.log(req.body);
-  products.push({ title: req.body.title });
+  const product = new Product(req.body.title)
+  product.save()
 }
 
 exports.getProducts = (req, res, next) => {
   //    res.sendFile(path.join(rootDir,'views','shop.html'))
+  products = Product.fetchAll()
   res.render("shop", {
     docTitile: "My Shop",
     products: products,
@@ -30,4 +33,4 @@ exports.getProducts = (req, res, next) => {
   });
   console.log("admin.js", products);
 }
-exports.products = products;
+// exports.products = products;
