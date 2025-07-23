@@ -4,6 +4,7 @@ exports.getAdminProducts = (req, res, next) => {
   Product.fetchAll((products) => {
     res.render("admin/products", {
       docTitile: "Admin Products",
+      products: products,
       path: "/admin/products",
     });
   });
@@ -11,7 +12,7 @@ exports.getAdminProducts = (req, res, next) => {
 exports.postAddProduct = (req, res, next) => {
   res.redirect("/");
   console.log(req.body);
-  const product = new Product(req.body.title);
+  const product = new Product(req.body.title,req.body.imageURL,req.body.price,req.body.description);
   product.save();
 };
 exports.getAddProduct = (req, res, next) => {

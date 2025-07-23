@@ -1,11 +1,9 @@
-
 const Product = require("../models/produc");
-
-
 
 exports.getIndex = (req, res, next) => {
   //    res.sendFile(path.join(rootDir,'views','shop.html'))
   Product.fetchAll((products) => {
+    console.log(products)
     res.render("shop/index", {
       docTitile: "My Shop",
       products: products,
@@ -29,31 +27,30 @@ exports.getProductList = (req, res, next) => {
 };
 
 exports.getCart = (req, res, next) => {
-
-
-    res.render("shop/cart", {
-      docTitile: "Cart",
-      path: "/cart",
-    });
-
+  res.render("shop/cart", {
+    docTitile: "Cart",
+    path: "/cart",
+  });
 };
 exports.getProductDetails = (req, res, next) => {
-
-
-    res.render("shop/product-details", {
-      docTitile: "Cart",
-      path: "/product-details",
-    });
-
+  res.render("shop/product-details", {
+    docTitile: "Cart",
+    path: "/product-details",
+  });
 };
 
 exports.getCheckout = (req, res, next) => {
+  res.render("shop/product-details", {
+    docTitile: "Checkout",
+    path: "/checkout",
+  });
+};
 
 
-    res.render("shop/product-details", {
-      docTitile: "Checkout",
-      path: "/checkout",
-    });
-
+exports.getOrders = (req, res, next) => {
+  res.render("shop/orders", {
+    docTitile: "Orders",
+    path: "/orders",
+  });
 };
 // exports.products = products;
