@@ -5,7 +5,7 @@ const Product = require("../models/produc");
 exports.getAddProduct = (req, res, next) => {
   res.sendFile(path.join(rootDir, "views", "add-product.html"));
   // res.send('<form action="/admin/product" method="POST"><input type="text" name="productName"/><button type="submit">Submit</button></form>')
-  res.render("add-product", {
+  res.render("admin/add-product", {
     docTitile: "Add Product",
     path: "/admin/add-product",
     isProductActive: true,
@@ -23,7 +23,7 @@ exports.postAddProduct = (req, res, next) => {
 exports.getProducts = (req, res, next) => {
   //    res.sendFile(path.join(rootDir,'views','shop.html'))
   Product.fetchAll((products) => {
-    res.render("shop", {
+    res.render("shop/product-list", {
       docTitile: "My Shop",
       products: products,
       path: "/",
