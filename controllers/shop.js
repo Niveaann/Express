@@ -21,7 +21,7 @@ exports.getProductList = (req, res, next) => {
     res.render("shop/product-list", {
       docTitile: "All Product",
       products: products,
-      path: "/product-list",
+      path: "/products",
     });
   });
 };
@@ -33,14 +33,19 @@ exports.getCart = (req, res, next) => {
   });
 };
 exports.getProductDetails = (req, res, next) => {
-  res.render("shop/product-details", {
-    docTitile: "Cart",
-    path: "/product-details",
+const id = req.params.productId
+  Product.fetchByID(id,(product) => {
+  res.render("shop/product-detail", {
+    docTitile: "Product Details",
+     path: "/products",
+     product :product
   });
+  })
+ 
 };
 
 exports.getCheckout = (req, res, next) => {
-  res.render("shop/product-details", {
+  res.render("shop/checkout", {
     docTitile: "Checkout",
     path: "/checkout",
   });
