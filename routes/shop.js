@@ -3,6 +3,11 @@ const path = require("path");
 const route = express.Router();
 const rootDir = require("../util/path");
 const adminData = require("./admin");
-const productController = require('../controllers/product')
-route.get("/", productController.getProducts);
+const shopController = require('../controllers/shop')
+route.get("/", shopController.getIndex);
+route.get("/product-list", shopController.getProductList);
+route.get("/cart", shopController.getCart);
+route.get("/product-detail", shopController.getProductDetails);
+route.get("/checkout", shopController.getCheckout);
 module.exports = route;
+ 
