@@ -1,4 +1,5 @@
 const Product = require("../models/produc");
+
 exports.getAdminProducts = (req, res, next) => {
   //    res.sendFile(path.join(rootDir,'views','shop.html'))
   Product.fetchAll((products) => {
@@ -37,7 +38,6 @@ exports.getEditProduct = (req, res, next) => {
   // res.send('<form action="/admin/product" method="POST"><input type="text" name="productName"/><button type="submit">Submit</button></form>')
   const productId = req.params.productId;
   const editMode = req.params.edit;
-  console.log(productId);
   Product.fetchByID(productId, (product) => {
     res.render("admin/add-product", {
       docTitile: "Edit Product",
@@ -51,10 +51,23 @@ exports.postEditProduct = (req, res, next) => {
 
   const productId = req.params.productId;
   const editMode = req.params.edit;
-  console.log(req.body);
   const product = {...req.body , id :productId }
-  console.log(product)
   Product.editProductByID(product)
   res.redirect("/admin/products");
+
+};
+exports.postDeleteProduct = (req, res, next) => {
+  Product.deleteByID(req.body.productId);
+  res.redirect("/admin/products");
+  //  Product.fetchByID(req.body.productId, (product) => {
+  //   // if(product){
+  //   //   Cart.deleteProduct(product.id,product.price)
+  //   // }
+   
+  //    res.redirect("/admin/products");
+  // });
+
+  
+
 
 };

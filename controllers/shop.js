@@ -61,9 +61,9 @@ exports.getOrders = (req, res, next) => {
 
 exports.postCart = (req, res, next) => {
   res.redirect("/cart")
-  console.log(req.body);
+
   Product.fetchByID(req.body.productId,(product)=>{
-    console.log(product);
+  
     Cart.addProduct(req.body.productId,product.price)
   })
   
