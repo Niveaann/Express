@@ -11,11 +11,16 @@ exports.getAdminProducts = (req, res, next) => {
 };
 exports.postAddProduct = (req, res, next) => {
   res.redirect("/");
-  const product = new Product(req.body.title,req.body.imageURL,req.body.price,req.body.description);
+  const product = new Product(
+    req.body.title,
+    req.body.imageUrl,
+    req.body.price,
+    req.body.description
+  );
   product.save();
 };
 exports.getAddProduct = (req, res, next) => {
- // res.sendFile(path.join(rootDir, "views", "add-product.html"));
+  // res.sendFile(path.join(rootDir, "views", "add-product.html"));
   // res.send('<form action="/admin/product" method="POST"><input type="text" name="productName"/><button type="submit">Submit</button></form>')
   res.render("admin/add-product", {
     docTitile: "Add Product",
@@ -23,5 +28,33 @@ exports.getAddProduct = (req, res, next) => {
     isProductActive: true,
     isProductCSS: true,
     isFormCSS: true,
+    edit: false,
   });
+};
+
+exports.getEditProduct = (req, res, next) => {
+  // res.sendFile(path.join(rootDir, "views", "add-product.html"));
+  // res.send('<form action="/admin/product" method="POST"><input type="text" name="productName"/><button type="submit">Submit</button></form>')
+  const productId = req.params.productId;
+  const editMode = req.params.edit;
+  console.log(productId);
+  Product.fetchByID(productId, (product) => {
+    res.render("admin/add-product", {
+      docTitile: "Edit Product",
+      path: "/admin/edit-product",
+      product: product,
+      edit: true,
+    });
+  });
+};
+exports.postEditProduct = (req, res, next) => {
+
+  const productId = req.params.productId;
+  const editMode = req.params.edit;
+  console.log(req.body);
+  const product = {...req.body , id :productId }
+  console.log(product)
+  Product.editProductByID(product)
+  res.redirect("/admin/products");
+
 };

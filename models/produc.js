@@ -2,8 +2,8 @@ const path = require("path");
 const rootDir = require("../util/path");
 const fs = require("fs");
 
+const p = path.join(rootDir, "data", "prouduct.json");
 function getProductsFromFile(callBack) {
-  const p = path.join(rootDir, "data", "prouduct.json");
   fs.readFile(p, (err, fileContent) => {
     if (!err) {
       callBack(JSON.parse(fileContent));
@@ -13,7 +13,7 @@ function getProductsFromFile(callBack) {
   });
 }
 module.exports = class Product {
-  constructor(title,imageUrl,price,description) {
+  constructor(title, imageUrl, price, description) {
     this.title = title;
     this.imageUrl = imageUrl;
     this.price = price;
@@ -21,7 +21,7 @@ module.exports = class Product {
   }
 
   save() {
-    this.id = Math.random.toString()
+    this.id = Math.random.toString();
     const p = path.join(rootDir, "data", "prouduct.json");
     getProductsFromFile((products) => {
       products.push(this);
@@ -46,10 +46,23 @@ module.exports = class Product {
     getProductsFromFile(callBack);
   }
 
-   static fetchByID(id,callBack) {
+  static fetchByID(id, callBack) {
     getProductsFromFile((products) => {
-      let product = products.find(p => p.id === id);
-      callBack(product)
+      let product = products.find((p) => p.id === id);
+      callBack(product);
+    });
+  }
+
+  static editProductByID(updatedValue, callBack) {
+    getProductsFromFile((products) => {
+      let updatedProductIndex = products.findIndex(
+        (p) => p.id === updatedValue.id
+      );
+      let updatedProducts = [...products];
+      updatedProducts[updatedProductIndex] = updatedValue;
+      fs.writeFile(p, JSON.stringify(updatedProducts), (err) => {
+        console.log(err);
+      });
     });
   }
 };
