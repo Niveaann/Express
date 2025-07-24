@@ -75,7 +75,6 @@ module.exports = class Product {
         console.log(err);
       
         if(!err){
-            console.log('hello')
           Cart.deleteProduct(productId,product.price)
         }
       });
